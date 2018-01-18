@@ -29,4 +29,10 @@ You can customize the adapter view according your needs and how format the resul
 
 # Demo 
 -------
-![old_ui][https://github.com/ameenmaheen/SocialMentionAutoComplete/blob/master/art/old_ui.gif]
+This is the example used in the Libary
+
+![old_ui](https://github.com/ameenmaheen/SocialMentionAutoComplete/blob/master/art/old_ui.gif)
+
+You can improve the view by Creating a improved custom `ArrayAdapter`
+
+![new_ui](https://github.com/ameenmaheen/SocialMentionAutoComplete/blob/master/art/updated_ui.gif)
