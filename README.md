@@ -35,4 +35,4 @@ This is the example used in the Libary
 
 You can improve the view by Creating a improved custom `ArrayAdapter`
 
-![new_ui](https://github.com/ameenmaheen/SocialMentionAutoComplete/blob/master/art/art/updated_ui.gif)
+![new_ui](https://github.com/ameenmaheen/SocialMentionAutoComplete/blob/master/art/updated_ui.gif)
