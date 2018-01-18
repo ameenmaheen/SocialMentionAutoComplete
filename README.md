@@ -29,4 +29,4 @@ You can customize the adapter view according your needs and how format the resul
 
 # Demo 
 -------
-![old_ui][old_ui]
+![old_ui][https://github.com/ameenmaheen/SocialMentionAutoComplete/blob/master/art/old_ui.gif]
