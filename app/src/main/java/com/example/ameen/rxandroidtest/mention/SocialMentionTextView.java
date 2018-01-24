@@ -9,9 +9,7 @@ import android.text.SpannableString;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.example.ameen.rxandroidtest.R;
@@ -27,9 +25,8 @@ import java.util.regex.Pattern;
 
 public class SocialMentionTextView extends AppCompatTextView {
 
-    ArrayMap<String, MentionPerson> map = new ArrayMap<>();
-
-    private static final String TAG = "SocialMentionTextView";
+    String originalString;
+    OnMentionClickListener onMentionClickListener;
 
     public SocialMentionTextView(Context context) {
         super(context);
@@ -47,6 +44,7 @@ public class SocialMentionTextView extends AppCompatTextView {
     }
 
     private void init() {
+
         int textColor = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
         setLinkTextColor(textColor);
         setLinksClickable(true);
@@ -54,15 +52,19 @@ public class SocialMentionTextView extends AppCompatTextView {
         setFocusable(false);
     }
 
+    public void setOnMentionClickListener(OnMentionClickListener onMentionClickListener) {
+        this.onMentionClickListener = onMentionClickListener;
+    }
+
     public void setMentionText(String text) {
 
-        map.clear();
+        originalString = text;
+
+        ArrayMap<String, MentionPerson> map = new ArrayMap<>();
 
         Pattern p = Pattern.compile("\\[([^]]+)]\\(([^ )]+)\\)");
         Matcher m = p.matcher(text);
-
         String finalDesc = text;
-
 
         while (m.find()) {
 
@@ -111,12 +113,30 @@ public class SocialMentionTextView extends AppCompatTextView {
 
     public interface OnMentionClickListener {
 
-        void onMentionClick(MentionPerson mentionPerson);
+        void onMentionClick(String personId);
     }
 
     public void handleLinkClicked(String value) {
-        if (value.startsWith("@")) {
-            Log.d(TAG, "handleLinkClicked: " + value);
+
+        if (onMentionClickListener != null)
+            if (value.startsWith("@")) {
+                String result = processUser(value);
+                if (result != null)
+                    onMentionClickListener.onMentionClick(result);
+            }
+    }
+
+    private String processUser(String value) {
+
+        String result = null;
+        Pattern p = Pattern.compile("\\[([^]]+)]\\(([^ )]+)\\)");
+        Matcher m = p.matcher(originalString);
+        while (m.find()) {
+            if (("@" + m.group(1)).contains(value)) {
+                result = m.group(2).substring(m.group(2).indexOf(":") + 1);
+                break;
+            }
         }
+        return result;
     }
 }

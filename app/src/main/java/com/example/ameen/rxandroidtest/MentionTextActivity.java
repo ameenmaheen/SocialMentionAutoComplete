@@ -2,13 +2,14 @@ package com.example.ameen.rxandroidtest;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.ameen.rxandroidtest.mention.SocialMentionTextView;
 
-public class MentionTextActivity extends AppCompatActivity implements View.OnClickListener {
+public class MentionTextActivity extends AppCompatActivity implements View.OnClickListener,SocialMentionTextView.OnMentionClickListener {
 
     protected EditText editText;
     protected Button button;
@@ -32,10 +33,17 @@ public class MentionTextActivity extends AppCompatActivity implements View.OnCli
     }
 
 
+
     private void initView() {
         editText = findViewById(R.id.editText);
         button = findViewById(R.id.button);
         button.setOnClickListener(MentionTextActivity.this);
         socialMentionTextView = findViewById(R.id.socialMentionTextView);
+        socialMentionTextView.setOnMentionClickListener(this);
+    }
+
+    @Override
+    public void onMentionClick(String personId) {
+        Log.d(TAG, "onMentionClick: "+personId);
     }
 }
