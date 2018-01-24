@@ -110,13 +110,12 @@ public class SocialMentionAutoComplete extends AppCompatMultiAutoCompleteTextVie
             mentionPerson.id = id;
             map.put("@" + name, mentionPerson);
         }
-
+        int textColor = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
         Spannable spannable = new SpannableString(finalDesc);
         for (Map.Entry<String, MentionPerson> stringMentionPersonEntry : map.entrySet()) {
             int startIndex = finalDesc.indexOf(stringMentionPersonEntry.getKey());
             int endIndex = startIndex + stringMentionPersonEntry.getKey().length();
-            int textColor = ResourcesCompat.getColor(getResources(), R.color.colorPrimary, null);
-            spannable.setSpan(new ForegroundColorSpan(textColor), startIndex, endIndex , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                       spannable.setSpan(new ForegroundColorSpan(textColor), startIndex, endIndex , Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         setText(spannable);
     }
